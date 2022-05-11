@@ -18,6 +18,23 @@ class EveryOneData:
         except:
             self.saveEveryOne()
 
+    def getName(self, from_user):
+        if from_user.username:
+            name = from_user.username
+        else:
+            name = from_user.first_name
+        return name
+
+    def removeUser(self, from_user):
+        userId = from_user.id
+        if userId in self.ids:
+            id_index = self.ids.index(userId)
+            self.names[id_index], self.names[-1] = self.names[-1], self.names[id_index]
+            self.ids[id_index], self.ids[-1] = self.ids[-1], self.ids[id_index]
+            del self.names[id_index]
+            del self.ids[id_index]
+        self.saveEveryOne()
+
     def addUser(self, from_user):
         userId = from_user.id
         if from_user.username:
@@ -31,7 +48,6 @@ class EveryOneData:
             self.names.append(name)
             self.ids.append(userId)
         self.saveEveryOne()
-        return
 
     def saveEveryOne(self):
         with open(EveryOneData.DataFileName, "wb") as f:

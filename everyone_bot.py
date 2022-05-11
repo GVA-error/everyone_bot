@@ -21,7 +21,10 @@ def group_handler(message):
 
     if isSaveCall(text):
         eData.addUser(fromUser)
-        eData.saveEveryOne()
         bot.send_message(message.chat.id, f"Я тебя запомнил @{nick}.")
+    elif isRemoveCall(text):
+        eData.removeUser(fromUser)
+        bot.send_message(message.chat.id, f"Больше не буду тебе писать @{nick}.")
+
 
 bot.polling(none_stop=True)
