@@ -2,10 +2,12 @@ import telebot
 from handlers.everyOneData import EveryOneData
 from handlers.handlers import *
 
+import time
+
 bot = telebot.TeleBot("5384660321:AAGg8UNrkMDoNJstAeRSAjzDbbDfGzNiPuA")
 
 eData = EveryOneData()
-
+#f_mutex = False
 @bot.message_handler(content_types=["text"])
 def group_handler(message):
     fromUser = message.from_user
@@ -15,10 +17,22 @@ def group_handler(message):
     if isEveryoneCall(text):
         names = eData.getEveryoneNames()
         ids = eData.getEveryoneChatIds()
+        badIds = []
         for id in ids:
-            if eData.is_userWontMessages(fromUser):
-                bot.send_message(id, f"::{text}")
-        bot.send_message(message.chat.id, f"Позвал {names}")
+            try:
+                if eData.is_userWontMessages(fromUser):
+                    bot.send_message(id, f"::{text}")
+            except:
+                badIds.append(id)
+
+        bot.send_message(message.chat.id, f"Позвал: {names}")
+        badNames = []
+        for i, id in enumerate(ids):
+            if id in badIds:
+                badNames.append(eData.names[i])
+        badNamesSting = f",".join(list(map(lambda name:f"@{name}", badNames)))
+        bot.send_message(message.chat.id, f"Не доступны (нет диалога): {badNamesSting}")
+
 
     if isSaveCall(text):
         eData.addUser(fromUser)

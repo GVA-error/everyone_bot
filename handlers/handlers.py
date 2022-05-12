@@ -22,14 +22,14 @@ def isSaveCall(text):
     return False
 
 def isMessSattusCall(text):
-    callVariants = ["!непишимне", "!Непишимне"]
+    callVariants = ["!пиши мне", "!Пиши мне"]
     for callVariant in callVariants:
         if callVariant in text:
             return True
     return False
 
 def isUnMessSattusCall(text):
-    callVariants = ["!пишимне", "!Пишимне"]
+    callVariants = ["!не пиши мне", "!Не пиши мне"]
     for callVariant in callVariants:
         if callVariant in text:
             return True
