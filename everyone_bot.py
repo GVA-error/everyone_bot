@@ -31,7 +31,8 @@ def group_handler(message):
             if id in badIds:
                 badNames.append(eData.names[i])
         badNamesSting = f",".join(list(map(lambda name:f"@{name}", badNames)))
-        bot.send_message(message.chat.id, f"Не доступны (нет диалога): {badNamesSting}")
+        if len(badNames) > 0:
+            bot.send_message(message.chat.id, f"Не доступны (нет диалога): {badNamesSting}")
 
 
     if isSaveCall(text):
