@@ -2,8 +2,6 @@ import telebot
 from handlers.everyOneData import EveryOneData
 from handlers.handlers import *
 
-import time
-
 bot = telebot.TeleBot("5384660321:AAGg8UNrkMDoNJstAeRSAjzDbbDfGzNiPuA")
 
 eData = EveryOneData()
