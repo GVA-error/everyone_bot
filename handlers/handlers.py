@@ -12,6 +12,10 @@ def isEveryoneCall(text):
         return True
     if "!Все" in text:
         return True
+    if "@all" in text:
+        return True
+    if "@All" in text:
+        return True
     return False
 
 def isSaveCall(text):
